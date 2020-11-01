@@ -11,13 +11,10 @@ pipeline {
         stage("GIT") {
             steps {
                 script {
-                    if (params.PROJECT== "NODEJS") {
-                        echo "NODEJS"
-                    } 
-                    } else if (params.PROJECT== "PYTHON") {
-                        echo "PYTHON"
-                    } else {
-                        echo "ALL"
+                    switch(params.DEPLOY_TO) {
+                        case "NODEJS": echo "NODEJS"; break
+                        case "PYTHON": echo "PYTHON"; break
+                        case "ALL": echo "ALL"; break
                     }
                 }
             }
