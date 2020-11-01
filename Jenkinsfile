@@ -9,6 +9,7 @@ pipeline {
   }
   stages {
         stage("GIT") {
+            agent { label 'node1' }
             steps {
                 script {
                     switch(params.PROJECT) {
