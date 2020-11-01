@@ -18,23 +18,23 @@ pipeline {
           switch (params.PROJECT) {
           case "NODEJS":
             echo "NodeJS GIT"
-            env.DOCKER_IMAGE=luandnh1998/nodejs
+            env.DOCKER_IMAGE="luandnh1998/nodejs"
             git 'https://github.com/luandnh/node-hello.git';
             sh './jenkins/build.sh'
             break
           case "PYTHON":
             echo "Python GIT"
-            env.DOCKER_IMAGE=luandnh1998/pythonhello
+            env.DOCKER_IMAGE="luandnh1998/pythonhello"
             git 'https://github.com/luandnh/python-hello.git';
             sh './jenkins/build.sh'
             break
           case "ALL":
             echo "NodeJS GIT"
-            env.DOCKER_IMAGE=luandnh1998/nodejs
+            env.DOCKER_IMAGE="luandnh1998/nodejs"
             git 'https://github.com/luandnh/node-hello.git';
             sh './jenkins/build.sh'
             echo "Python GIT"
-            env.DOCKER_IMAGE=luandnh1998/pythonhello
+            env.DOCKER_IMAGE="luandnh1998/pythonhello"
             git 'https://github.com/luandnh/python-hello.git';
             sh './jenkins/build.sh'
             break
