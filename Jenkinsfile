@@ -16,7 +16,9 @@ pipeline {
                         case "NODEJS": git 'https://github.com/luandnh/node-hello.git'; break
                         case "PYTHON": git 'https://github.com/luandnh/python-hello.git'; break
                         case "ALL": 
+                            echo "NodeJS GIT"
                             git 'https://github.com/luandnh/node-hello.git';
+                            echo "Python GIT"
                             git 'https://github.com/luandnh/python-hello.git';
                             break
                     }
