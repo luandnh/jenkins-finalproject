@@ -11,7 +11,7 @@ pipeline {
         stage("GIT") {
             steps {
                 script {
-                    switch(params.DEPLOY_TO) {
+                    switch(params.PROJECT) {
                         case "NODEJS": echo "NODEJS"; break
                         case "PYTHON": echo "PYTHON"; break
                         case "ALL": echo "ALL"; break
