@@ -12,9 +12,12 @@ pipeline {
             steps {
                 script {
                     switch(params.PROJECT) {
-                        case "NODEJS": echo "NODEJS"; break
-                        case "PYTHON": echo "PYTHON"; break
-                        case "ALL": echo "ALL"; break
+                        case "NODEJS": git 'https://github.com/luandnh/node-hello.git'; break
+                        case "PYTHON": git 'https://github.com/luandnh/python-hello.git'; break
+                        case "ALL": 
+                            git 'https://github.com/luandnh/node-hello.git';
+                            git 'https://github.com/luandnh/python-hello.git';
+                            break
                     }
                 }
             }
