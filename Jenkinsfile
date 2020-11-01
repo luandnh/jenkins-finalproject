@@ -5,7 +5,6 @@ pipeline {
     name: 'PROJECT', choices: ['ALL', 'NODEJS', 'PYTHON'], description: 'PROJECT TO CI/CD')
   }
   environment {
-    DOCKER_IMAGE = 'luandnh1998/pythonhello'
     DOCKERHUB_PW = credentials('dockerhub_pw')
     DOCKERHUB_USER = 'luandnh1998'
   }
@@ -19,25 +18,25 @@ pipeline {
           switch (params.PROJECT) {
           case "NODEJS":
             echo "NodeJS GIT"
+            env.DOCKER_IMAGE=luandnh1998/nodejs
             git 'https://github.com/luandnh/node-hello.git';
-            sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_ID} .';
-            sh 'docker tag ${DOCKER_IMAGE}:${BUILD_ID} ${DOCKER_IMAGE}:lastest';
+            sh './jenkins/build.sh'
             break
           case "PYTHON":
             echo "Python GIT"
+            env.DOCKER_IMAGE=luandnh1998/pythonhello
             git 'https://github.com/luandnh/python-hello.git';
-            sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_ID} .';
-            sh 'docker tag ${DOCKER_IMAGE}:${BUILD_ID} ${DOCKER_IMAGE}:lastest';
+            sh './jenkins/build.sh'
             break
           case "ALL":
             echo "NodeJS GIT"
+            env.DOCKER_IMAGE=luandnh1998/nodejs
             git 'https://github.com/luandnh/node-hello.git';
-            sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_ID} .';
-            sh 'docker tag ${DOCKER_IMAGE}:${BUILD_ID} ${DOCKER_IMAGE}:lastest';
+            sh './jenkins/build.sh'
             echo "Python GIT"
+            env.DOCKER_IMAGE=luandnh1998/pythonhello
             git 'https://github.com/luandnh/python-hello.git';
-            sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_ID} .';
-            sh 'docker tag ${DOCKER_IMAGE}:${BUILD_ID} ${DOCKER_IMAGE}:lastest';
+            sh './jenkins/build.sh'
             break
           }
         }
