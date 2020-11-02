@@ -10,12 +10,11 @@ pipeline {
   }
   stages {
     stage("Build") {
-
       parallel {
         stage("Build NodeJS") {
-                agent {
-        label 'node1'
-      }
+          agent {
+            label 'node1'
+          }
           when {
             expression {
               params.PROJECT == 'NODEJS' || params.PROJECT == 'ALL'
@@ -23,8 +22,8 @@ pipeline {
           }
           steps {
             echo "NodeJS GIT";
-            script{
-            env.DOCKER_IMAGE = "luandnh1998/nodejs";
+            script {
+              env.DOCKER_IMAGE = "luandnh1998/nodejs";
             }
 
             git 'https://github.com/luandnh/node-hello.git';
@@ -32,9 +31,9 @@ pipeline {
           }
         }
         stage("Build Python") {
-                agent {
-        label 'node1'
-      }
+          agent {
+            label 'node1'
+          }
           when {
             expression {
               params.PROJECT == 'PYTHON' || params.PROJECT == 'ALL'
@@ -42,8 +41,8 @@ pipeline {
           }
           steps {
             echo "Python GIT"
-            script{
-            env.DOCKER_IMAGE = "luandnh1998/pythonhello";
+            script {
+              env.DOCKER_IMAGE = "luandnh1998/pythonhello";
             }
             git 'https://github.com/luandnh/python-hello.git';
             sh './jenkins/build.sh';
@@ -51,14 +50,12 @@ pipeline {
         }
       }
     }
-
-    stage("Deploy") {
-
+    stage("Push") {
       parallel {
-        stage("Deploy NodeJS") {
-                agent {
-        label 'node2'
-      }
+        stage("Push NodeJS") {
+          agent {
+            label 'node1'
+          }
           when {
             expression {
               params.PROJECT == 'NODEJS' || params.PROJECT == 'ALL'
@@ -66,8 +63,48 @@ pipeline {
           }
           steps {
             echo "NodeJS GIT";
-            script{
-            env.DOCKER_IMAGE = "luandnh1998/nodejs";
+            script {
+              env.DOCKER_IMAGE = "luandnh1998/nodejs";
+            }
+            git 'https://github.com/luandnh/node-hello.git';
+            sh './jenkins/push.sh';
+          }
+        }
+        stage("Push Python") {
+          agent {
+            label 'node1'
+          }
+          when {
+            expression {
+              params.PROJECT == 'PYTHON' || params.PROJECT == 'ALL'
+            }
+          }
+          steps {
+            echo "Python GIT";
+            script {
+              env.DOCKER_IMAGE = "luandnh1998/pythonhello";
+            }
+            git 'https://github.com/luandnh/python-hello.git';
+            sh './jenkins/push.sh';
+          }
+        }
+      }
+    }
+    stage("Deploy") {
+      parallel {
+        stage("Deploy NodeJS") {
+          agent {
+            label 'node2'
+          }
+          when {
+            expression {
+              params.PROJECT == 'NODEJS' || params.PROJECT == 'ALL'
+            }
+          }
+          steps {
+            echo "NodeJS GIT";
+            script {
+              env.DOCKER_IMAGE = "luandnh1998/nodejs";
             }
             git 'https://github.com/luandnh/node-hello.git';
             echo "Remove Old Container";
@@ -76,9 +113,9 @@ pipeline {
           }
         }
         stage("Deploy Python") {
-                agent {
-        label 'node2'
-      }
+          agent {
+            label 'node2'
+          }
           when {
             expression {
               params.PROJECT == 'PYTHON' || params.PROJECT == 'ALL'
@@ -86,8 +123,8 @@ pipeline {
           }
           steps {
             echo "Python GIT";
-            script{
-            env.DOCKER_IMAGE = "luandnh1998/pythonhello";
+            script {
+              env.DOCKER_IMAGE = "luandnh1998/pythonhello";
             }
             git 'https://github.com/luandnh/python-hello.git';
             echo "Remove Old Container";
