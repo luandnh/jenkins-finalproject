@@ -22,7 +22,10 @@ pipeline {
           }
           steps {
             echo "NodeJS GIT";
+            script{
             env.DOCKER_IMAGE = "luandnh1998/nodejs";
+            }
+
             git 'https://github.com/luandnh/node-hello.git';
             sh './jenkins/build.sh';
           }
@@ -35,7 +38,9 @@ pipeline {
           }
           steps {
             echo "Python GIT"
+            script{
             env.DOCKER_IMAGE = "luandnh1998/pythonhello";
+            }
             git 'https://github.com/luandnh/python-hello.git';
             sh './jenkins/build.sh';
           }
@@ -56,7 +61,9 @@ pipeline {
           }
           steps {
             echo "NodeJS GIT";
+            script{
             env.DOCKER_IMAGE = "luandnh1998/nodejs";
+            }
             git 'https://github.com/luandnh/node-hello.git';
             echo "Remove Old Container";
             sh './scripts/remove_old_container.sh';
@@ -71,7 +78,9 @@ pipeline {
           }
           steps {
             echo "Python GIT";
+            script{
             env.DOCKER_IMAGE = "luandnh1998/pythonhello";
+            }
             git 'https://github.com/luandnh/python-hello.git';
             echo "Remove Old Container";
             sh './scripts/remove_old_container.sh';
