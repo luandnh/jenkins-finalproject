@@ -10,11 +10,12 @@ pipeline {
   }
   stages {
     stage("Build") {
-      agent {
-        label 'node1'
-      }
+
       parallel {
         stage("Build NodeJS") {
+                agent {
+        label 'node1'
+      }
           when {
             expression {
               params.PROJECT == 'NODEJS' || params.PROJECT == 'ALL'
@@ -31,6 +32,9 @@ pipeline {
           }
         }
         stage("Build Python") {
+                agent {
+        label 'node1'
+      }
           when {
             expression {
               params.PROJECT == 'PYTHON' || params.PROJECT == 'ALL'
@@ -49,11 +53,12 @@ pipeline {
     }
 
     stage("Deploy") {
-      agent {
-        label 'node2'
-      }
+
       parallel {
         stage("Deploy NodeJS") {
+                agent {
+        label 'node2'
+      }
           when {
             expression {
               params.PROJECT == 'NODEJS' || params.PROJECT == 'ALL'
@@ -71,6 +76,9 @@ pipeline {
           }
         }
         stage("Deploy Python") {
+                agent {
+        label 'node2'
+      }
           when {
             expression {
               params.PROJECT == 'PYTHON' || params.PROJECT == 'ALL'
