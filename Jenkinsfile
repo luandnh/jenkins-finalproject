@@ -25,7 +25,6 @@ pipeline {
             script {
               env.DOCKER_IMAGE = "luandnh1998/nodejs";
             }
-
             git 'https://github.com/luandnh/node-hello.git';
             sh './jenkins/build.sh';
           }
