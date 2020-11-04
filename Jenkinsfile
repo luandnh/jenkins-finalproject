@@ -103,6 +103,9 @@ pipeline {
           steps {
             echo "NodeJS GIT";
             script {
+              sh "hostname -f > hostname.txt";
+              def hostname = readFile(file: 'hostname.txt');
+              env.HOST_NAME = hostname;
               env.DOCKER_IMAGE = "luandnh1998/nodejs";
             }
             git 'https://github.com/luandnh/node-hello.git';
@@ -123,6 +126,9 @@ pipeline {
           steps {
             echo "Python GIT";
             script {
+              sh "hostname -f > hostname.txt";
+              def hostname = readFile(file: 'hostname.txt');
+              env.HOST_NAME = hostname;
               env.DOCKER_IMAGE = "luandnh1998/pythonhello";
             }
             git 'https://github.com/luandnh/python-hello.git';
